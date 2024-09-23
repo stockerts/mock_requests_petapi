@@ -31,6 +31,7 @@ jobs:
             response=$(curl -s -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
+            echo "Token variable created"
             continue
           fi
 
@@ -43,7 +44,6 @@ jobs:
             if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             else
-              echo "$encoded_url"
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url")
             fi
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
