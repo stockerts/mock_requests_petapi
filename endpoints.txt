@@ -1,4 +1,4 @@
 GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats
 GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByPetID?petID=895213
 GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByName?name=Fluffy
-POST http://petapi.lab-sec.f5demo.com/api/Auth/JWT {"username": "customer", "password": "supersecret!"}
+POST http://petapi.lab-sec.f5demos.com/api/Auth/JWT {"username": "customer", "password": "supersecret!"}
