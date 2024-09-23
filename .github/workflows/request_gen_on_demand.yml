@@ -1,4 +1,4 @@
-name: Trigger Curl Requests with JWT Token and Conditional Authorization
+name: Curl Requests for PetAPI Traffic Generation
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Read and trigger curl requests from endpoints.txt with methods, POST/PUT body, and JWT token
+    - name: Requests via Curl
       run: |
         token=""
         while IFS='|' read -r method url body; do
@@ -26,7 +26,7 @@ jobs:
           # Encode only spaces in the URL
           encoded_url="${url// /%20}"
 
-          # Check if URL ends with /jwt
+          # Check if URL ends with /JWT
           if [[ "$encoded_url" == */JWT ]]; then
             response=$(curl -s -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
