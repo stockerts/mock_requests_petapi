@@ -20,10 +20,8 @@ jobs:
     - name: Read and trigger curl requests from endpoints.txt with methods, POST/PUT body, and JWT token
       run: |
         token=""
-        while IFS=' ' read -r method url body; do
+        while IFS=' | ' read -r method url body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
-
-          url=$(echo "$url" | sed 's/^"\(.*\)"$/\1/')
           
           # Check if URL ends with /jwt
           if [[ "$url" == */JWT ]]; then
