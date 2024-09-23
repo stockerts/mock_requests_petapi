@@ -15,5 +15,4 @@ jobs:
 
     - name: Make a curl request
       run: |
-        response=$(curl -s -x GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats")
-        echo "Response: $response"
+        curl -s -x GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats"
