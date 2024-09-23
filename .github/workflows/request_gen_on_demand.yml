@@ -28,7 +28,7 @@ jobs:
             echo "[$timestamp PST] $method to $url : Capturing JWT"
             response=$(curl -s -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Assuming the token is in the JSON response with a 'token' key
-            echo "[$timestamp PST] Captured JWT token: $token"
+            echo "[$timestamp PST] Captured JWT token: $reponse $token"
             continue
           fi
 
