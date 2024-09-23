@@ -19,6 +19,6 @@ jobs:
 
     - name: Read and trigger curl requests from endpoints.txt with methods, POST/PUT body, and JWT token
       run: |
-            url = http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon
-            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" -url "$url" -H "Content-Type: application/json")
-            echo "[$timestamp PST] $method to $url : $response_code"
+            
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "GET" -url "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon" -H "Content-Type: application/json")
+            echo "[$timestamp PST] : $response_code"
