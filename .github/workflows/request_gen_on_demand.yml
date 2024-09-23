@@ -39,10 +39,12 @@ jobs:
           if [[ "$encoded_url" == */Update ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
-          else
-            # For all other methods
-            if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
-              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
+            continue
+          fi
+          
+          # For all other methods
+          if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             else
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url")
             fi
