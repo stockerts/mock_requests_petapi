@@ -22,7 +22,7 @@ jobs:
         token=""
         while IFS='|' read -r method url body; do
           method=$(echo "$method" | xargs)
-          url=$(echo "$url" | xargs)
+          url=$(echo "$url" | xargs | sed 's/^"\(.*\)"$/\1/') 
           body=$(echo "$body" | xargs)
           
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
