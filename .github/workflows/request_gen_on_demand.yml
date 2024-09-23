@@ -1,0 +1,19 @@
+name: Request Generator - On Demand
+
+on:
+  push:
+    branches:
+      - main # Change this to your default branch if it's different
+
+jobs:
+  get-cat-age:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Make a curl request
+      run: |
+        response=$(curl -s -x GET http://stock-demo-api.cloud.myf5demo.com/api/CatLookup/GetAllCats)
+        echo "Response Code: $response_code"
