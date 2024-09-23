@@ -23,17 +23,17 @@ jobs:
         while IFS=' ' read -r method url body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
           
-          # Check if URL contains /JWT/
-          if [[ "$url" == */JWT ]]; then
+          # Check if URL ends with /jwt
+          if [[ "$url" == */jwt ]]; then
+            echo "[$timestamp PST] $method to $url : Capturing JWT"
             response=$(curl -s -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
-            echo "$reponse"
-            #token=$(echo "$response" | jq -r '.token')  # Assuming the token is in the JSON response with a 'token' key
-           #echo "[$timestamp PST] Captured JWT token: $reponse $token"
+            token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
+            echo "[$timestamp PST] Captured JWT token: $token"
             continue
           fi
 
           # Prepare the curl command for /Submit/ endpoints
-          if [[ "$url" == */Submit/ ]]; then
+          if [[ "$url" == */Submit ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
             echo "[$timestamp PST] $method to $url : $response_code"
           else
