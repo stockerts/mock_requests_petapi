@@ -1,0 +1,3 @@
+http://stock-demo-api.cloud.myf5demo.com/api/CatLookup/GetAllCats
+http://stock-demo-api.cloud.myf5demo.com/api/CatLookup/GetByPetID?petID=895213
+http://stock-demo-api.cloud.myf5demo.com/api/CatLookup/GetByName?name=Fluffy
