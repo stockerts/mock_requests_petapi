@@ -20,19 +20,20 @@ jobs:
     - name: Read and trigger curl requests from endpoints.txt with methods, POST/PUT body, and JWT token
       run: |
         token=""
-        while IFS='' read -r method "url" body; do
+        while IFS=' ' read -r method url body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
 
-          # Check if URL ends with /JWT
+          url=$(echo "$url" | sed 's/^"\(.*\)"$/\1/')
+          
+          # Check if URL ends with /jwt
           if [[ "$url" == */JWT ]]; then
-            echo "[$timestamp PST] $method to $url : Capturing JWT"
             response=$(curl -s -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
-            echo "[$timestamp PST] Captured JWT token: $token"
+            echo "[$timestamp PST] $method to $url : $response_code"
             continue
           fi
 
-          # Prepare the curl command for /Update endpoints
+          # Prepare the curl command for /Submit/ endpoints
           if [[ "$url" == */Update ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
             echo "[$timestamp PST] $method to $url : $response_code"
@@ -41,7 +42,6 @@ jobs:
             if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
             else
-              echo "$url"
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
             fi
             echo "[$timestamp PST] $method to $url : $response_code"
