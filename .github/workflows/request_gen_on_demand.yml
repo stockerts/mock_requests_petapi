@@ -20,9 +20,7 @@ jobs:
     - name: Read and trigger curl requests from endpoints.txt with methods, POST/PUT body, and JWT token
       run: |
         token=""
-        while IFS=' ' read -r method url body; do
-          url=${url#\{}   # Remove the opening curly brace
-          url=${url%\}}   # Remove the closing curly brace
+        while IFS='|' read -r method url body; do
           
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
           
