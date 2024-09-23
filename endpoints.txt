@@ -1,8 +1,8 @@
 GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats
 GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByPetID?petID=895213
 GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByName?name=Fluffy
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon"
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByLocation?location=Paw Pad"
+GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon
+GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByLocation?location=Paw Pad
 GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByAge?age=5
 GET http://petapi.lab-sec.f5demos.com/api/DogLookup/GetAllDogs
 POST http://petapi.lab-sec.f5demos.com/api/Auth/JWT {"username": "customer", "password": "supersecret!"}
