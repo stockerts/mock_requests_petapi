@@ -20,7 +20,7 @@ jobs:
     - name: Read and trigger curl requests from endpoints.txt with methods, POST/PUT body, and JWT token
       run: |
         token=""
-        while IFS='' read -r method url body; do
+        while IFS='' read -r method "url" body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
 
           # Check if URL ends with /JWT
@@ -39,9 +39,10 @@ jobs:
           else
             # For all other methods
             if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
-              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" $url -H "Content-Type: application/json" -d "$body")
+              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
             else
-              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" $url)
+              echo "$url"
+              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
             fi
             echo "[$timestamp PST] $method to $url : $response_code"
           fi
