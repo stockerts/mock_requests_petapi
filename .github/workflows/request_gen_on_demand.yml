@@ -20,13 +20,17 @@ jobs:
     - name: Requests via Curl
       run: |
         # Curl Job Block
-        while IFS='|' read -r method url body; do
+
+          # Create variable matches for method, url and body from endpoints file
+          while IFS='|' read -r method url body; do
+        
+          # Create variable for time
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
 
-          # Encode only spaces in the URL
+          # Encode spaced within url, create encoded_url variable
           encoded_url="${url// /%20}"
 
-          # Match JWT, make request and capture token
+          # Request Match JWT endpoint, capture token, create token variable
           if [[ "$encoded_url" == */JWT ]]; then
             response=$(curl -s -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
@@ -35,14 +39,14 @@ jobs:
             continue
           fi
 
-          # 
+          # Request Match Update endpoint, use token variable
           if [[ "$encoded_url" == */Update ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
             continue
           fi
           
-          # For all other methods
+          # Requests for all other endpoints
           if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
@@ -51,5 +55,8 @@ jobs:
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
           fi
 
+          # Add delayed between requests  
           sleep 1  # Delay of 1 second
-        done < endpoints.txt
+
+          # Endpoint source file
+          done < endpoints.txt
