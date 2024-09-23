@@ -1,5 +1,5 @@
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats" {}
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByPetID?petID=895213" {}
+GET http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats {}
+GET 'http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByPetID?petID=895213' {}
 GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByName?name=Fluffy" {}
 GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByName?name=Fluffy" {}
 GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon" {}
