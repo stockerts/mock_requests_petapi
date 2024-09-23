@@ -1,24 +1,26 @@
-name: Trigger Curl Request
+name: Trigger Curl Requests from URL File
 
 on:
-  # Trigger the action on a push to any branch or on a pull request.
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
-  workflow_dispatch: # Allows manual trigger via GitHub UI
+  workflow_dispatch:
 
 jobs:
-  curl_request:
+  curl_requests:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      
-    - name: Trigger curl request
+
+    - name: Read and trigger curl requests from urls.txt
       run: |
-        response_code=$(curl -o /dev/null -s -w "%{http_code}" http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats)
-        echo "Response code: $response_code"
+        while IFS= read -r url; do
+          echo "Sending request to $url"
+          response_code=$(curl -o /dev/null -s -w "%{http_code}" "$url")
+          echo "Response code for $url: $response_code"
+        done < urls.txt
