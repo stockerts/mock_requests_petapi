@@ -1,10 +1,10 @@
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats" {}
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByPetID?petID=895213" {}
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByName?name=Fluffy" {}
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon" {}
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByLocation?location=Paw Pad" {}
-GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByAge?age=5" {}
-GET "http://petapi.lab-sec.f5demos.com/api/DogLookup/GetAllDogs" {}
+GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats"
+GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByPetID?petID=895213"
+GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByName?name=Fluffy"
+GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon"
+GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByLocation?location=Paw Pad"
+GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByAge?age=5"
+GET "http://petapi.lab-sec.f5demos.com/api/DogLookup/GetAllDogs"
 POST "http://petapi.lab-sec.f5demos.com/api/Auth/JWT" {"username": "customer", "password": "supersecret!"}
 POST "http://petapi.lab-sec.f5demos.com/api/PetAdmin/Submit" {"type": "Cat", "name": "Fluffy", "breed": "Persian","age": "2", "location": "Paw Pad", "phoneNumber": "(111) 111-1111", "email": "info@pawpad.com"}
 PUT "http://petapi.lab-sec.f5demos.com/api/PetAdmin/Update" {"petID": "895210", "type": "Cat", "name": "Fluffy", "breed": "Persian","age": "2", "location": "Paw Pad", "phoneNumber": "(111) 111-1111", "email": "info@pawpad.com"}
