@@ -33,7 +33,7 @@ jobs:
           fi
 
           # Prepare the curl command for /Submit/ endpoints
-          if [[ "$url" == */Submit ]]; then
+          if [[ "$url" == */Update ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
             echo "[$timestamp PST] $method to $url : $response_code"
           else
