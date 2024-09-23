@@ -27,7 +27,7 @@ jobs:
           
           # Check if URL ends with /jwt
           if [[ "$url" == */JWT ]]; then
-            response=$(curl -s -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
+            response=$(curl -s -X "$method" $url -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
             echo "[$timestamp PST] $method to $url : $response_code"
             continue
@@ -35,14 +35,14 @@ jobs:
 
           # Prepare the curl command for /Submit/ endpoints
           if [[ "$url" == */Update ]]; then
-            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" $url -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
             echo "[$timestamp PST] $method to $url : $response_code"
           else
             # For all other methods
             if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
-              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
+              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" $url -H "Content-Type: application/json" -d "$body")
             else
-              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
+              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" $url)
             fi
             echo "[$timestamp PST] $method to $url : $response_code"
           fi
