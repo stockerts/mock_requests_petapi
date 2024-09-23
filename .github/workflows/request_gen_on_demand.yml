@@ -20,7 +20,7 @@ jobs:
     - name: Read and trigger curl requests from urls.txt
       run: |
         while IFS= read -r url; do
-          timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+          timestamp=$(date "+%H:%M:%S")
           response_code=$(curl -o /dev/null -s -w "%{http_code}" "$url")
           echo "[$timestamp] Request for $url: $response_code"
           sleep 1.00  # Delay of 1000ms
