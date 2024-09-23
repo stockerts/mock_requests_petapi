@@ -25,10 +25,9 @@ jobs:
           
           # Check if URL ends with /jwt
           if [[ "$url" == */JWT ]]; then
-            echo "[$timestamp PST] $method to $url : Capturing JWT"
             response=$(curl -s -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
-            echo "[$timestamp PST] Captured JWT token: $token"
+            echo "[$timestamp PST] $method to $url : $response_code"
             continue
           fi
 
