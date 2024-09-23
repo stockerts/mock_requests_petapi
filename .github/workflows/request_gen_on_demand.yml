@@ -6,7 +6,7 @@ on:
       - main # Change this to your default branch if it's different
 
 jobs:
-  get-cat-age:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,4 +15,5 @@ jobs:
 
     - name: Make a curl request
       run: |
-        curl -s -x GET "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats"
+        response = $(curl http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats -header "Accept= application/json")         
+        echo "response from curl= $response"
