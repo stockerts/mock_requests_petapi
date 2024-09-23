@@ -19,7 +19,7 @@ jobs:
 
     - name: Read and trigger curl requests from urls.txt
       run: |
-        while IFS= read -r url; do
+        while IFS=' ' read -r method url; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
           response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
           echo "[$timestamp PST] Request for $url : $response_code"
