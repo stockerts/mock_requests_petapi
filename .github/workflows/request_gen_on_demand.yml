@@ -20,7 +20,7 @@ jobs:
     - name: Read and trigger curl requests from urls.txt
       run: |
         while IFS= read -r url; do
-          echo "Sending request to $url"
           response_code=$(curl -o /dev/null -s -w "%{http_code}" "$url")
-          echo "Response code for $url: $response_code"
+          echo "Request for $url: $response_code"
+          sleep 1.00  # Delay of 1000ms
         done < endpoints.txt
