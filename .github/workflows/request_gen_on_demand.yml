@@ -1,4 +1,4 @@
-name: Trigger Curl Requests with Methods and POST/PUT Body
+name: Trigger Curl Requests with JWT Token and Conditional Authorization
 
 on:
   push:
@@ -12,19 +12,31 @@ on:
 jobs:
   curl_requests:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Read and trigger curl requests from endpoints.txt with methods and POST/PUT body
+    - name: Read and trigger curl requests from endpoints.txt with methods, POST/PUT body, and JWT token
       run: |
+        token=""
         while IFS=' ' read -r method url body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
           
+          # Check if URL contains /JWT/
+          if [[ "$url" == *"/JWT/"* ]]; then
+            response=$(curl -s -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
+            token=$(echo "$response" | jq -r '.token')  # Assuming the token is in the JSON response with a 'token' key
+            echo "[$timestamp PST] $method to $url : $response_code with $token"
+
+           if [[ "$url" == *"/Submit/"* ]]; then
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
+			      echo "[$timestamp PST] $method to $url : $response_code"
+			
           if [ "$method" = "POST" ] || [ "$method" = "PUT" ]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
             echo "[$timestamp PST] $method to $url : $response_code"
+			
           else
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
             echo "[$timestamp PST] $method to $url : $response_code"
