@@ -21,7 +21,6 @@ jobs:
       run: |
         token=""
         while IFS=' ' read -r method url body; do
-          url_encoded=$(echo "$url" | jq -sRr @uri)
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
           
           # Check if URL ends with /jwt
@@ -44,7 +43,6 @@ jobs:
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
             fi
             echo "[$timestamp PST] $method to $url : $response_code"
-            echo "[$timestamp PST] $method to $url_encoded : $response_code"
           fi
 
           sleep 1  # Delay of 1 second
