@@ -41,7 +41,6 @@ jobs:
             response=$(curl -s -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
-            echo "JWT token created"
             continue
           fi
 
