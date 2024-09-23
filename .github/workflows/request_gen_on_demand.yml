@@ -20,7 +20,7 @@ jobs:
     - name: Requests via Curl
       run: |
         # Set number of Iterations
-        iterations=5
+        iterations=1
         for ((i=1; i<=iterations; i++)); do
         # Display the current iteration number
         echo "Iteration: $i"
