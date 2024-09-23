@@ -34,7 +34,7 @@ jobs:
           if [[ "$encoded_url" == */JWT ]]; then
             response=$(curl -s -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
-            echo "[$timestamp PST] $method to $encoded_url : $response_code"
+            echo "[$timestamp PST] $method to $url : $response_code"
             echo "JWT token created"
             continue
           fi
@@ -42,17 +42,17 @@ jobs:
           # Request Match Update endpoint, use token variable
           if [[ "$encoded_url" == */Update ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
-            echo "[$timestamp PST] $method to $encoded_url : $response_code"
+            echo "[$timestamp PST] $method to $url : $response_code"
             continue
           fi
           
           # Requests for all other endpoints
           if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
-            echo "[$timestamp PST] $method to $encoded_url : $response_code"
+            echo "[$timestamp PST] $method to $url : $response_code"
           else
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url")
-            echo "[$timestamp PST] $method to $encoded_url : $response_code"
+            echo "[$timestamp PST] $method to $url : $response_code"
           fi
 
           # Add delayed between requests  
