@@ -19,7 +19,7 @@ jobs:
 
     - name: Requests via Curl
       run: |
-        token=""
+        # Curl Job Block
         while IFS='|' read -r method url body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
 
@@ -32,17 +32,15 @@ jobs:
             token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
             echo "Token variable created"
-            continue
-          fi
 
           # Prepare the curl command for /Submit/ endpoints
           if [[ "$encoded_url" == */Update ]]; then
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
-          else
-            # For all other methods
-            if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
-              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
+
+          # For all other methods
+          if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -d "$body")
             else
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url")
             fi
