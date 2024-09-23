@@ -40,6 +40,7 @@ jobs:
             if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
             else
+            echo "$url"
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
             fi
             echo "[$timestamp PST] $method to $url : $response_code"
