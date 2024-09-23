@@ -23,9 +23,6 @@ jobs:
         while IFS='' read -r method url body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
 
-          # Handle quotes around the URL and URL encode spaces
-          url=$(echo "$url" | sed 's/^"\(.*\)"$/\1/' | sed 's/ /%20/g')
-
           # Check if URL ends with /JWT
           if [[ "$url" == */JWT ]]; then
             echo "[$timestamp PST] $method to $url : Capturing JWT"
