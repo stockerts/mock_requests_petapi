@@ -21,4 +21,4 @@ jobs:
       run: |
             
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "GET" -url "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon" -H "Content-Type: application/json")
-            echo "[$timestamp PST] : $response_code"
+            echo "$response_code"
