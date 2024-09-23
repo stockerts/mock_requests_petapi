@@ -19,7 +19,11 @@ jobs:
 
     - name: Requests via Curl
       run: |
-        # Curl Job Block
+        # Set number of Iterations
+        iterations=5
+        for ((i=1; i<=iterations; i++)); do
+
+          # Curl Block
 
           # Create variable matches for method, url and body from endpoints file
           while IFS='|' read -r method url body; do
@@ -58,5 +62,8 @@ jobs:
           # Add delayed between requests  
           sleep 1  # Delay of 1 second
 
-          # Endpoint source file
+          # End Curl block, set endpoints file
           done < endpoints.txt
+        
+        #End iterations block  
+        done
