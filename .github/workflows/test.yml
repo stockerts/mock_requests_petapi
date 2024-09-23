@@ -14,5 +14,5 @@ jobs:
     steps:
       - name: Run curl command and get response code
         run: |
-          response=$(curl -s -o /dev/null -w "%{http_code}" "'http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon'")
+          response=$(curl -s -o /dev/null -w "%{http_code}" 'http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon')
           echo "HTTP Response Code: $response"
