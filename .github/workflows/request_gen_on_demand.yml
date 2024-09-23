@@ -49,6 +49,7 @@ jobs:
           else
             response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url")
             echo "[$timestamp PST] $method to $encoded_url : $response_code"
+          fi
 
           sleep 1  # Delay of 1 second
         done < endpoints.txt
