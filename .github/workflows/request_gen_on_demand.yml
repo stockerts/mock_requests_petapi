@@ -21,9 +21,6 @@ jobs:
       run: |
         token=""
         while IFS='|' read -r method url body; do
-          method=$(echo "$method" | xargs)
-          url=$(echo "$url" | xargs | sed 's/^"\(.*\)"$/\1/') 
-          body=$(echo "$body" | xargs)
           
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
           
@@ -47,7 +44,7 @@ jobs:
             echo "$url"
               response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
             fi
-            echo "[$timestamp PST] $method to $url : $response_code"
+            echo "[$timestamp PST] $method to "$url" : $response_code"
           fi
 
           sleep 1  # Delay of 1 second
