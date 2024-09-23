@@ -1,24 +1,16 @@
-name: Trigger Curl Requests with JWT Token and Conditional Authorization
+name: Curl Action
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+      - main  # Change this to your default branch
 
 jobs:
-  curl_requests:
+  curl-job:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Read and trigger curl requests from endpoints.txt with methods, POST/PUT body, and JWT token
-      run: |
-            
-            response_code=$(curl -o /dev/null -s -w "%{http_code}" 'http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon')
-            echo "$response_code"
+      - name: Run curl command and get response code
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" "http://petapi.lab-sec.f5demos.com/api/CatLookup/GetByBreed?breed=Main Coon")
+          echo "HTTP Response Code: $response"
