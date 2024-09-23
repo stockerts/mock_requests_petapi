@@ -23,4 +23,4 @@ jobs:
           echo "Sending request to $url"
           response_code=$(curl -o /dev/null -s -w "%{http_code}" "$url")
           echo "Response code for $url: $response_code"
-        done < urls.txt
+        done < endpoints.txt
