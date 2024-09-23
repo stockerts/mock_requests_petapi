@@ -1,19 +1,24 @@
-name: Request Generator - On Demand
+name: Trigger Curl Request
 
 on:
+  # Trigger the action on a push to any branch or on a pull request.
   push:
     branches:
-      - main # Change this to your default branch if it's different
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger via GitHub UI
 
 jobs:
-  build:
+  curl_request:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Check out the repository
-      uses: actions/checkout@v2
-
-    - name: Make a curl request
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Trigger curl request
       run: |
-        response = $(curl http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats -header "Accept= application/json")         
-        echo "response from curl= $response"
+        response_code=$(curl -o /dev/null -s -w "%{http_code}" http://petapi.lab-sec.f5demos.com/api/CatLookup/GetAllCats)
+        echo "Response code: $response_code"
