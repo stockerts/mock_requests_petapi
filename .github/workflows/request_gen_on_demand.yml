@@ -21,7 +21,7 @@ jobs:
       run: |
         token=""
         while IFS=' ' read -r method url body; do
-          url_encoded=$(echo "$url" | sed 's/ /%20/g')
+          url_encoded=$(echo "$url" | jq -sRr @uri)
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
           
           # Check if URL ends with /jwt
