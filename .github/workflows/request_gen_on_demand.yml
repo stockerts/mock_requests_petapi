@@ -1,4 +1,4 @@
-name: Trigger Curl Requests from URL File
+name: Trigger Curl Requests with Methods and POST Body
 
 on:
   push:
@@ -17,11 +17,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Read and trigger curl requests from urls.txt
+    - name: Read and trigger curl requests from endpoints with methods and POST body
       run: |
-        while IFS=' ' read -r method url; do
+        while IFS=' ' read -r method url body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
-          response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
-          echo "[$timestamp PST] $method to $url : $response_code"
-          sleep 1.00  # Delay of 1000ms
-        done < endpoints.txt
+          
+          if [ "$method" = "POST" ]; then
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
+            echo "[$timestamp PST] $method to $url : $response_code"
+          else
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
+            echo "[$timestamp PST] $method to $url : $response_code"
+          fi
+
+          sleep 1  # Delay of 1 second
+        done < endpoints
