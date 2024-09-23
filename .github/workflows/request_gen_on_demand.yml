@@ -25,20 +25,27 @@ jobs:
           
           # Check if URL contains /JWT/
           if [[ "$url" == *"/JWT/"* ]]; then
+            echo "[$timestamp PST] $method to $url : Capturing JWT"
             response=$(curl -s -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
             token=$(echo "$response" | jq -r '.token')  # Assuming the token is in the JSON response with a 'token' key
-            echo "[$timestamp PST] $method to $url : $response_code with $token"
+            echo "[$timestamp PST] Captured JWT token: $token"
+            continue
+          fi
 
-           if [[ "$url" == *"/Submit/"* ]]; then
-            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -H "Authorization: Bearer $token" -d "$body")
-			      echo "[$timestamp PST] $method to $url : $response_code"
-			
-          if [ "$method" = "POST" ] || [ "$method" = "PUT" ]; then
-            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" -H "Content-Type: application/json" -d "$body")
+          # Prepare the curl command for /Submit/ endpoints
+          if [[ "$url" == *"/Submit/"* ]] && [[ "$method" == "POST" || "$method" == "PUT" ]]; then
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $token" -d "$body")
             echo "[$timestamp PST] $method to $url : $response_code"
-			
           else
-            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
+            # For all other methods
+            if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
+              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url" \
+                -H "Content-Type: application/json" -d "$body")
+            else
+              response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$url")
+            fi
             echo "[$timestamp PST] $method to $url : $response_code"
           fi
 
