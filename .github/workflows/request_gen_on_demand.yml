@@ -23,8 +23,8 @@ jobs:
         while IFS='|' read -r method url body; do
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
 
-          # URL encode the URL variable
-          encoded_url=$(echo "$url" | jq -sRr @uri)
+          # Encode only spaces in the URL
+          encoded_url="${url// /%20}"
 
           # Check if URL ends with /jwt
           if [[ "$encoded_url" == */JWT ]]; then
