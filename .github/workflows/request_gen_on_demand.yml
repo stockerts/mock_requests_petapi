@@ -44,8 +44,6 @@ jobs:
           # Encode spaced within url, create encoded_url variable
           encoded_url="${url// /%20}"
 
-          echo "$encoded_url"
-
           # Request Match JWT endpoint, capture token, create token variable
           if [[ "$encoded_url" == */JWT ]]; then
             response=$(curl -s -X "$method" "$encoded_url" -H "Content-Type: application/json" -H "XC-Auth-Obj: 5k8seiuqQ23KdfeB6H" -d "$body")
