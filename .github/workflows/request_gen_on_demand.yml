@@ -25,7 +25,7 @@ jobs:
         source ./variables.sh
         
         # Set number of Iterations
-        iterations=1
+        iterations=$iterations
         for ((i=1; i<=iterations; i++)); do
         # Display the current iteration number
         echo "Iteration: $i"
