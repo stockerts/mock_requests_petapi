@@ -41,7 +41,7 @@ jobs:
           # Create URL
           url="$protocol//:$$domain$path"
 
-          echo "url"
+          echo "$url"
           
           # Encode spaced within url, create encoded_url variable
           encoded_url="${url// /%20}"
