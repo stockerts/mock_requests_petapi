@@ -22,10 +22,10 @@ jobs:
     - name: Requests via Curl
       run: |
         # Variables file
-        # source ./variables.sh
+        source ./variables.sh
         
         # Set number of Iterations
-        iterations=1
+        iterations=$iterations
         for ((i=1; i<=iterations; i++)); do
         # Display the current iteration number
         echo "Iteration: $i"
@@ -39,7 +39,9 @@ jobs:
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
 
           # Create URL
-          # url="$protocol//:$$domain$path"
+          url="$protocol//:$$domain$path"
+
+          Echo "url"
           
           # Encode spaced within url, create encoded_url variable
           encoded_url="${url// /%20}"
