@@ -40,11 +40,11 @@ jobs:
 
           # Create URL
           url="$protocol//:$domain$path"
-
-          echo "$url"
           
           # Encode spaced within url, create encoded_url variable
           encoded_url="${url// /%20}"
+
+          echo "$encoded_url"
 
           # Request Match JWT endpoint, capture token, create token variable
           if [[ "$encoded_url" == */JWT ]]; then
