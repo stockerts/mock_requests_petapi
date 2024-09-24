@@ -1,0 +1,65 @@
+name: Curl Requests for PetAPI Traffic Generation
+
+on:
+  schedule:
+    - cron: '0 0 */3 * *'
+
+jobs:
+  curl_requests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Requests via Curl
+      run: |
+        # Set number of Iterations
+        iterations=1
+        for ((i=1; i<=iterations; i++)); do
+        # Display the current iteration number
+        echo "Iteration: $i"
+
+          # Curl Block
+
+          # Create variable matches for method, url and body from endpoints file
+          while IFS='|' read -r method url body; do
+        
+          # Create variable for time
+          timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
+
+          # Encode spaced within url, create encoded_url variable
+          encoded_url="${url// /%20}"
+
+          # Request Match JWT endpoint, capture token, create token variable
+          if [[ "$encoded_url" == */JWT ]]; then
+            response=$(curl -s -X "$method" "$encoded_url" -H "Content-Type: application/json" -H "XC-Auth-Obj: 5k8seiuqQ23KdfeB6H" -d "$body")
+            token=$(echo "$response" | jq -r '.token')  # Extract the token value from the response
+            echo "[$timestamp PST] $method to $encoded_url : $response_code"
+            continue
+          fi
+
+          # Request Match Update endpoint, use token variable
+          if [[ "$encoded_url" == */Update ]]; then
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -H "XC-Auth-Obj: 5k8seiuqQ23KdfeB6H" -H "Authorization: Bearer $token" -d "$body")
+            echo "[$timestamp PST] $method to $encoded_url : $response_code"
+            continue
+          fi
+          
+          # Requests for all other endpoints
+          if [[ "$method" == "POST" || "$method" == "PUT" ]]; then
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "Content-Type: application/json" -H "XC-Auth-Obj: 5k8seiuqQ23KdfeB6H" -d "$body")
+            echo "[$timestamp PST] $method to $encoded_url : $response_code"
+          else
+            response_code=$(curl -o /dev/null -s -w "%{http_code}" -X "$method" "$encoded_url" -H "XC-Auth-Obj: 5k8seiuqQ23KdfeB6H")
+            echo "[$timestamp PST] $method to $encoded_url : $response_code"
+          fi
+
+          # Add delayed between requests  
+          sleep 1  # Delay of 1 second
+
+          # End Curl block, set endpoints file
+          done < endpoints.txt
+        
+        #End iterations block  
+        done
