@@ -72,7 +72,7 @@ jobs:
           sleep 1  # Delay of 1 second
 
           # End Curl block, set endpoints file
-          done < endpoints.txt
+          done < endpoints2.txt
         
         #End iterations block  
         done
