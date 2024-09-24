@@ -39,7 +39,7 @@ jobs:
           timestamp=$(TZ="America/Los_Angeles" date "+%H:%M:%S")
 
           # Create URL
-          url="$protocol//:$domain$path"
+          url="$protocol://$domain$path"
           
           # Encode spaced within url, create encoded_url variable
           encoded_url="${url// /%20}"
