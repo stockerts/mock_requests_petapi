@@ -1,4 +1,4 @@
-GET|http://stock-auto-demo-api.cloud.myf5demo.com/api/CatLookup/GetAllCats|
+GET|/api/CatLookup/GetAllCats|
 GET|http://stock-auto-demo-api.cloud.myf5demo.com/api/CatLookup/GetByPetID?petID=895213| 
 GET|http://stock-auto-demo-api.cloud.myf5demo.com/api/CatLookup/GetByName?name=Fluffy|
 GET|http://stock-auto-demo-api.cloud.myf5demo.com/api/CatLookup/GetByBreed?breed=Main Coon|
