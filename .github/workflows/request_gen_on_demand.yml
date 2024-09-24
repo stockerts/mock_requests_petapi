@@ -21,7 +21,9 @@ jobs:
 
     - name: Requests via Curl
       run: |
-        # Variables file
+        # Start run
+        
+        # Variables file location
         source ./variables.sh
         
         # Set number of Iterations
