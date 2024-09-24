@@ -2,7 +2,7 @@ name: Curl Requests for PetAPI Traffic Generation
 
 on:
   schedule:
-    - cron: '0 0 */3 * *'
+    - cron: '0 */6 * * *' # Run every 6 hours
 
 jobs:
   curl_requests:
