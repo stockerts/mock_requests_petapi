@@ -23,9 +23,6 @@ jobs:
       run: |
         # Variables file
         source ./variables.sh
-
-        echo "$protocol"
-        echo "$domain"
         
         # Set number of Iterations
         iterations=$iterations
