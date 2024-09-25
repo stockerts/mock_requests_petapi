@@ -1,8 +1,13 @@
-name: Scheduled - API Request Generation
+name: On-Demand - API Request Generation - Dev
 
 on:
-  schedule:
-    - cron: '0 */6 * * *' # Run every 6 hours
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+  workflow_dispatch:
 
 jobs:
   api-request-generation:

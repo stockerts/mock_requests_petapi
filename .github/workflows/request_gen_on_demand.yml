@@ -1,25 +1,23 @@
-name: Curl Requests for PetAPI Traffic Generation
+name: On-Demand - API Request Generation
 
 on:
   push:
     branches:
       - main
-      - dev
   pull_request:
     branches:
       - main
-      - dev
   workflow_dispatch:
 
 jobs:
-  curl_requests:
+  api-request-generation:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Requests via Curl
+    - name: API Requests
       run: |
         # Start run
         
