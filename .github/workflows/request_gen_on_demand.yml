@@ -71,7 +71,7 @@ jobs:
           fi
 
           # Add delayed between requests  
-          sleep $delay  # Delay in seconds
+          sleep $delay
 
           # End Curl block, set endpoints file
           done < endpoints.txt
