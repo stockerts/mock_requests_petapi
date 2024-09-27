@@ -10,11 +10,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
-    - env:
-      xc_auth_value: ${{ secrets.xc_auth_value }}
 
     - name: API Requests
+    - env:
+        xc_auth_value: ${{ secrets.xc_auth_value }}
       run: |
         # Start run
         
