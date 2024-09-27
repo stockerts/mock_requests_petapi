@@ -12,6 +12,8 @@ jobs:
       uses: actions/checkout@v4
 
     - name: API Requests
+      env:
+        xc_auth_value: ${{ secrets.xc_auth_value }}
       run: |
         # Start run
         
