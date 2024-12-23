@@ -5,6 +5,7 @@ GET|/api/CatLookup/GetByBreed?breed=Main Coon|
 GET|/api/CatLookup/GetByLocation?location=Paw Pad|
 GET|/api/CatLookup/GetByAge?age=5|
 GET|/api/DogLookup/GetAllDogs|
+PUT|/api/PetAdmin/Update|{"petID": "895210", "type": "Cat", "name": "Fluffy", "breed": "Persian","age": "2", "location": "Paw Pad", "phoneNumber": "(111) 111-1111", "email": "info@pawpad.com"}
 POST|/api/Auth/JWT|{"username": "customer", "password": "supersecret!"}
 POST|/api/PetAdmin/Submit|{"type": "Cat", "name": "Fluffy", "breed": "Persian","age": "2", "location": "Paw Pad", "phoneNumber": "(111) 111-1111", "email": "info@pawpad.com"}
 PUT|/api/PetAdmin/Update|{"petID": "895210", "type": "Cat", "name": "Fluffy", "breed": "Persian","age": "2", "location": "Paw Pad", "phoneNumber": "(111) 111-1111", "email": "info@pawpad.com"}
