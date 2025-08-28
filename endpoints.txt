@@ -10,7 +10,7 @@ POST|/api/Auth/JWT|{"username": "customer", "password": "supersecret!"}
 POST|/api/PetAdmin/Submit|{"type": "Cat", "name": "Fluffy", "breed": "Persian","age": "2", "location": "Paw Pad", "phoneNumber": "(111) 111-1111", "email": "info@pawpad.com"}
 PUT|/api/PetAdmin/Update|{"petID": "895210", "type": "Cat", "name": "Fluffy", "breed": "Persian","age": "2", "location": "Paw Pad", "phoneNumber": "(111) 111-1111", "email": "info@pawpad.com"}
 GET|/api/CatLookup/GetByAge?age=three|
-GET|/api/CatLookup/GetByAge?age%3D123%27%20OR%20%271%27%3D%271|
+GET|/api/CatLookup/GetByAge?age=123' OR '1'='1|
 GET|/api/CatLookup/GetByName?file=../../sensitivefile.txt|
 GET|/api/CatLookup/GetByAge?age=three|
 POST|/api/PetAdmin/Submit|{"type": "Cat", "name": "Fluffy", "breed": "Persian","age": "2", "location": "Paw Pad", "phoneNumber": "(111) 111-1111", "email": "<script>alert('XSS Attack');</script>"}
