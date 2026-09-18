@@ -1,0 +1,25 @@
+POST|/api/authenticationservice/login|__CRED__
+GET|/api/accountlookup/getsavings?CustID=C895210|
+GET|/api/accountlookup/getchecking?CustID=C895210|
+GET|/api/customerlookup/getbyheroname?heroname=Iron Man|
+GET|/api/transactionlookup/getactivity?CustID=C895210&fromDate=2026-01-01&toDate=2026-09-18|
+POST|/api/authenticationservice/login|__CRED__
+GET|/api/accountlookup/getsavings?CustID=C895211|
+GET|/api/customerlookup/getbyheroname?heroname=Hawkeye|
+GET|/api/transactionlookup/getactivity?CustID=C895211&fromDate=2026-01-01&toDate=2026-09-18|
+POST|/api/authenticationservice/login|__CRED__
+GET|/api/accountlookup/getchecking?CustID=C895212|
+GET|/api/customerlookup/getbyheroname?heroname=Black Widow|
+POST|/api/transactionlookup/getactivity|{"custID": "C895212", "fromDate": "2026-01-01", "toDate": "2026-09-18", "categories": ["Deposit","Withdrawal"]}
+POST|/api/authenticationservice/login|__CRED__
+GET|/api/accountlookup/getsavings?CustID=C895213|
+GET|/api/customerlookup/getbyheroname?heroname=War Machine|
+GET|/api/transactionlookup/getactivity?CustID=C895213&fromDate=2026-01-01&toDate=2026-09-18|
+POST|/api/authenticationservice/login|__CRED__
+GET|/api/customerlookup/getbyheroname?heroname=Captain America|
+GET|/api/transactionlookup/getactivity?CustID=C895214&fromDate=2026-01-01&toDate=2026-09-18|
+GET|/api/customerlookup/getbydob?DOB=notadate|
+GET|/api/customerlookup/getbyid?CustID=C895210' OR '1'='1|
+GET|/api/customerlookup/getbylastname?file=../../sensitivefile.txt|
+GET|/api/customerlookup/getbydob?DOB=notadate|
+POST|/api/transactionlookup/getactivity|{"custID": "<script>alert('XSS Attack');</script>", "fromDate": "2026-01-01", "toDate": "2026-09-18"}
